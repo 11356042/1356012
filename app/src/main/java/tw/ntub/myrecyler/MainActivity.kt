@@ -41,6 +41,10 @@ class MyAdapter(private val data: ArrayList<Contact>): RecyclerView.Adapter<MyAd
             intent.setData(Uri.parse("tel:" + data[position].phone))
             it.context.startActivity(intent)
         }
+        holder.imageButton.setOnClickListener {
+            data.removeAt(position)
+            notifyDataSetChanged()
+        }
     }
 }
 
