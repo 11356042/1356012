@@ -1,6 +1,9 @@
 package tw.ntub.myrecyler
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
@@ -26,12 +29,18 @@ class MyAdapter(private val data: ArrayList<Contact>): RecyclerView.Adapter<MyAd
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        TODO("Not yet implemented")
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.adapter_row, parent, false))
     }
     override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.txtName.text = data[position].name
+        holder.txtPhone.text = data[position].phone
+        holder.imageView.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.setData(Uri.parse("tel:" + data[position].phone))
+            it.context.startActivity(intent)
+        }
     }
 }
 
